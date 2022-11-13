@@ -1,0 +1,8 @@
+C:\Users\Николай\OneDrive\Рабочий стол\C# Projects\FileManager\FileManager\bin\Debug\FileManager.exe.config
+C:\Users\Николай\OneDrive\Рабочий стол\C# Projects\FileManager\FileManager\bin\Debug\FileManager.exe
+C:\Users\Николай\OneDrive\Рабочий стол\C# Projects\FileManager\FileManager\bin\Debug\FileManager.pdb
+C:\Users\Николай\OneDrive\Рабочий стол\C# Projects\FileManager\FileManager\obj\Debug\FileManager.csproj.AssemblyReference.cache
+C:\Users\Николай\OneDrive\Рабочий стол\C# Projects\FileManager\FileManager\obj\Debug\FileManager.csproj.SuggestedBindingRedirects.cache
+C:\Users\Николай\OneDrive\Рабочий стол\C# Projects\FileManager\FileManager\obj\Debug\FileManager.csproj.CoreCompileInputs.cache
+C:\Users\Николай\OneDrive\Рабочий стол\C# Projects\FileManager\FileManager\obj\Debug\FileManager.exe
+C:\Users\Николай\OneDrive\Рабочий стол\C# Projects\FileManager\FileManager\obj\Debug\FileManager.pdb
