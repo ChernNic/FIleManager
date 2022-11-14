@@ -15,20 +15,15 @@ namespace FileManager
         
         static void Main(string[] args)
         {
-            int SelectedIndex;
+            string path = @"C:\";
 
-            string[] dirs = Directory.GetDirectories(@"C:\");
+            string[] Options = FileController.GetDirectoryInfo(path);
 
-            ConsoleKeyInfo PressedKey;
-            do
+            for (int i = 0; i < Options.Length; i++)
             {
-                Menu menu = new Menu("afafaf", dirs, "dadadadd");
-                SelectedIndex = menu.Run();
-                PressedKey = Console.ReadKey();
-                dirs = Directory.GetDirectories(dirs[SelectedIndex]);
-            } while(PressedKey.Key != ConsoleKey.Escape);
-
-
+                Console.WriteLine(Options[i]);
+            }
+            Console.ReadLine();
         }
     }
 }
