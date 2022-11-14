@@ -12,17 +12,18 @@ namespace FileManager
         public int SelectedIndex;
         private string[] Options;
         private string Label;
-        private string FullOrder;
+        private string[] PrevOptions;
 
-        public Menu(string label, string[] options, string fullOrder)
+        public Menu(string label, string[] options, string[] prevOptions)
         {
             Label = label;
-            Options = options;
+            Options = FileController.GetDirectoryInfo(@"C:\");
+            PrevOptions = prevOptions;
             SelectedIndex = 0;
-            FullOrder = fullOrder;
         }
         public void Display_Options()
         {
+            Console.ResetColor();
             Console.SetCursorPosition(0, 0);
             Console.WriteLine(Label);
             Console.SetCursorPosition(0, 1);
@@ -41,6 +42,7 @@ namespace FileManager
                     Console.ForegroundColor = ConsoleColor.White;
                     Console.BackgroundColor = ConsoleColor.Black;
                 }
+                Console.SetCursorPosition(0, i + 1);
                 Console.WriteLine(SelectedOption);
             }
             Console.ResetColor();
@@ -51,7 +53,6 @@ namespace FileManager
             ConsoleKey Key_Pressed;
             do
             {
-                
                 new Thread(Display_Options).Start();
 
                 ConsoleKeyInfo Key_Inf = Console.ReadKey(true);
@@ -73,11 +74,23 @@ namespace FileManager
                         SelectedIndex = 0;
                     };
                 }
+                Console.ForegroundColor = ConsoleColor.Black;
             } while (Key_Pressed != ConsoleKey.Enter);
 
-
-
             return SelectedIndex;
+        }
+        public void MenuClear()
+        {
+            for (int i = 0; i < PrevOptions.Length; i++)
+            {
+                Console.SetCursorPosition(0, 0);
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine(Label);
+                Console.ForegroundColor = ConsoleColor.Black;
+                Console.SetCursorPosition(0, i + 1);
+                Console.WriteLine(PrevOptions[i]);
+            }
+            Console.ResetColor();
         }
     }
 }
