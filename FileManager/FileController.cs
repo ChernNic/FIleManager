@@ -14,7 +14,7 @@ namespace FileManager
         {
             string[] result;
 
-            string[] dirs = Directory.GetDirectories(path);
+            string[] dirs = Directory.GetDirectories(path); //добавь исключение
 
             for (int i = 0; i < dirs.Length; i++)
             {
