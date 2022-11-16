@@ -11,22 +11,23 @@ namespace FileManager
     {
         public int SelectedIndex;
         private string[] Options;
-        private string Label;
+        private string Label = "Имя                                                   Тип";
         private string[] PrevOptions;
 
-        public Menu(string label, string[] options, string[] prevOptions)
+        public void MainMenu()
         {
-            Label = label;
-            Options = FileController.GetDirectoryInfo(@"C:\");
-            PrevOptions = prevOptions;
-            SelectedIndex = 0;
+            string[] Dirs = FileController.GetDirectoryInfo(@"C:\");
+            string[] Files = FileController.GetFileInfo(@"C:\");
+            Options = Dirs.Concat(Files).ToArray();
+            Run();
         }
+
         public void Display_Options()
         {
             Console.ResetColor();
             Console.SetCursorPosition(0, 0);
             Console.WriteLine(Label);
-            Console.SetCursorPosition(0, 1);
+            Console.SetCursorPosition(0, 3);
             
             for (int i = 0; i < Options.Length; i++)
             {
@@ -83,7 +84,7 @@ namespace FileManager
         {
             for (int i = 0; i < PrevOptions.Length; i++)
             {
-                Console.SetCursorPosition(0, 0);
+                Console.SetCursorPosition(0, 2);
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine(Label);
                 Console.ForegroundColor = ConsoleColor.Black;

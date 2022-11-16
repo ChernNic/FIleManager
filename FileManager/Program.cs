@@ -15,15 +15,19 @@ namespace FileManager
         
         static void Main(string[] args)
         {
-            string path = @"C:\";
+            //string path = @"C:\";
 
-            string[] Options = FileController.GetDirectoryInfo(path);
+            //string[] Options = FileController.GetFileInfo(path);
 
-            for (int i = 0; i < Options.Length; i++)
-            {
-                Console.WriteLine(Options[i]);
-            }
-            Console.ReadLine();
+            //for (int i = 0; i < Options.Length; i++)
+            //{
+            //    Console.WriteLine(Options[i]);
+            //}
+            //Console.ReadLine();
+
+            Menu menu = new Menu();
+            menu.MainMenu();
+
         }
     }
 }
