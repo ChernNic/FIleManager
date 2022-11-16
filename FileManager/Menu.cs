@@ -10,12 +10,16 @@ namespace FileManager
     internal class Menu
     {
         public int SelectedIndex;
+        private string Label = "NAME                                                  DATE                                                                        ";
         private string[] Options;
-        private string Label = "Имя                                                   Тип";
         private string[] PrevOptions;
+        private string[] Paths;
+        private string[] PrevPaths;
 
         public void MainMenu()
         {
+            Console.CursorVisible = false;
+            Paths = FileController.GetPaths(@"C:\");
             string[] Dirs = FileController.GetDirectoryInfo(@"C:\");
             string[] Files = FileController.GetFileInfo(@"C:\");
             Options = Dirs.Concat(Files).ToArray();
@@ -26,8 +30,11 @@ namespace FileManager
         {
             Console.ResetColor();
             Console.SetCursorPosition(0, 0);
+            Console.ForegroundColor = ConsoleColor.Black;
+            Console.BackgroundColor = ConsoleColor.Blue;
             Console.WriteLine(Label);
-            Console.SetCursorPosition(0, 3);
+            Console.ResetColor();
+            Console.SetCursorPosition(0, 2);
             
             for (int i = 0; i < Options.Length; i++)
             {
@@ -49,14 +56,15 @@ namespace FileManager
             Console.ResetColor();
 
         }
-        public int Run()
+        public void Run()
         {
             ConsoleKey Key_Pressed;
             do
             {
                 new Thread(Display_Options).Start();
-
+                Thread.Sleep(10);
                 ConsoleKeyInfo Key_Inf = Console.ReadKey(true);
+                Thread.Sleep(10);
                 Key_Pressed = Key_Inf.Key;
 
                 if (Key_Pressed == ConsoleKey.UpArrow)
@@ -76,9 +84,27 @@ namespace FileManager
                     };
                 }
                 Console.ForegroundColor = ConsoleColor.Black;
-            } while (Key_Pressed != ConsoleKey.Enter);
 
-            return SelectedIndex;
+                switch(Key_Pressed)
+                {
+                    case ConsoleKey.Escape:
+                        Paths = PrevPaths;
+                        Options = PrevOptions;
+                        break;
+
+                    case ConsoleKey.Enter:
+                        PrevOptions = Options;
+                        PrevPaths = Paths;
+
+                        string[] Dirs = FileController.GetDirectoryInfo(Paths[SelectedIndex]);
+                        string[] Files = FileController.GetFileInfo(Paths[SelectedIndex]);
+                        Options = Dirs.Concat(Files).ToArray();
+
+                        MenuClear();
+                        break;
+                }
+
+            } while (true);
         }
         public void MenuClear()
         {
@@ -86,7 +112,6 @@ namespace FileManager
             {
                 Console.SetCursorPosition(0, 2);
                 Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine(Label);
                 Console.ForegroundColor = ConsoleColor.Black;
                 Console.SetCursorPosition(0, i + 1);
                 Console.WriteLine(PrevOptions[i]);

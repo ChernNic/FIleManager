@@ -48,6 +48,29 @@ namespace FileManager
             }
             return result;
         }
-        //
+        
+        public static string[] GetPaths(string path)
+        {
+            string[] dirs = Directory.GetDirectories(path);
+            string[] files = Directory.GetFiles(path);
+            string[] result = dirs.Concat(files).ToArray();
+            return result;
+        }
+
+        public static void OpenFile(string path)
+        {
+            try
+            {
+                File.Open(path, FileMode.Open);
+            }
+            catch (System.IO.IOException)
+            {
+
+            }
+            finally
+            {
+
+            }
+        }
     }
 }
