@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Net;
-using System.Net.Sockets;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace FileManager
 {
@@ -17,17 +13,19 @@ namespace FileManager
         {
             //string path = @"C:\";
 
-            //string[] Options = FileController.GetFileInfo(path);
+            //string[] Options = Directory.GetFileSystemEntries(path);
 
             //for (int i = 0; i < Options.Length; i++)
             //{
             //    Console.WriteLine(Options[i]);
             //}
+
             //Console.ReadLine();
 
             Menu menu = new Menu();
             menu.MainMenu();
-
         }
+        
     }
 }
+
