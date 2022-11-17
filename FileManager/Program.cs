@@ -18,7 +18,7 @@ namespace FileManager
             //for (int i = 0; i < Options.Length; i++)
             //{
             //    Console.WriteLine(Options[i]);
-            //}
+            //}|—
 
             //Console.ReadLine();
 

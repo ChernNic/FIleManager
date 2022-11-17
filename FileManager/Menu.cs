@@ -27,15 +27,15 @@ namespace FileManager
             Console.Title = "Console File Manager";
             CurrentPath = FileController.DriveMenu();
             Console.CursorVisible = false;
-            Paths = Directory.GetDirectories(CurrentPath);
+            Paths = FileController.GetPaths(CurrentPath);
             Options = FileController.GetDirectoryInfo(CurrentPath);
+            PrevOptions = Options;
             Run();
         }
 
         private void Display_Options()
         {
             Console.ResetColor();
-
             Console.SetCursorPosition(0, 0);
             Console.ForegroundColor = ConsoleColor.Black;
             Console.BackgroundColor = ConsoleColor.Blue;
@@ -70,6 +70,7 @@ namespace FileManager
                 }
                 Console.SetCursorPosition(0, 2 + i);
                 Console.WriteLine(SelectedOption);
+                Instructons();
             }
             Console.ResetColor();
         }
@@ -79,25 +80,24 @@ namespace FileManager
             do
             {
                 new Thread(Display_Options).Start();
-                Thread.Sleep(10);
+                Thread.Sleep(50);
                 ConsoleKeyInfo Key_Inf = Console.ReadKey(true);
-                Thread.Sleep(10);
                 Key_Pressed = Key_Inf.Key;
 
                 if (Key_Pressed == ConsoleKey.UpArrow)
                 {
-                    SelectedIndex--;
-                    if (SelectedIndex < 0)
+                    
+                    if (SelectedIndex > 0)
                     {
-                        SelectedIndex = Options.Length;
+                        SelectedIndex--;
                     };
                 }
                 else if (Key_Pressed == ConsoleKey.DownArrow)
                 {
-                    SelectedIndex++;
-                    if (SelectedIndex >= Options.Length)
+                    
+                    if (SelectedIndex < Options.Length - 1)
                     {
-                        SelectedIndex = 0;
+                        SelectedIndex++;
                     };
                 }
                 Console.ForegroundColor = ConsoleColor.Black;
@@ -107,13 +107,17 @@ namespace FileManager
                     case ConsoleKey.Escape:
                         try
                         {
+                            PrevOptions = Options;
                             CurrentPath = Path.GetDirectoryName(CurrentPath);
                             Options = FileController.GetDirectoryInfo(CurrentPath);
                             MenuClear();
                         }
                         catch (System.ArgumentNullException)
                         {
+                            PrevOptions = Options;
                             CurrentPath = FileController.DriveMenu();
+                            Options = FileController.GetDirectoryInfo(CurrentPath);
+                            MenuClear();
                         }
                         break;
 
@@ -121,6 +125,7 @@ namespace FileManager
                         PrevOptions = Options;
                         try
                         {
+                            PrevOptions = Options;
                             Paths = FileController.GetPaths(CurrentPath);
                             Options = FileController.GetDirectoryInfo(Paths[SelectedIndex]);
                             CurrentPath = Paths[SelectedIndex];
@@ -133,24 +138,32 @@ namespace FileManager
                         }
                         catch (System.UnauthorizedAccessException)
                         {
-
+                            FileController.AccessException();
                         }
                         break;
 
                     case ConsoleKey.Delete:
                         FileController.DeleteFile(Paths[SelectedIndex]);
+                        MenuClear();
                         Options = FileController.GetDirectoryInfo(CurrentPath);
                         break;
                     case ConsoleKey.F1:
-                        //FileController.CreateDirectory(Paths[SelectedIndex]);
-                        //Options = FileController.GetDirectoryInfo(CurrentPath);
+                        FileController.CreateDirectory(CurrentPath);
+                        MenuClear();
+                        Options = FileController.GetDirectoryInfo(CurrentPath);
+                        break;
+                    case ConsoleKey.F2:
+                        SelectedIndex = 0;
+                        FileController.CreateFile(CurrentPath);
+                        MenuClear();
+                        Options = FileController.GetDirectoryInfo(CurrentPath);
                         break;
                 }
             } while (true);
         }
         private void MenuClear()
         {
-            for (int i = 0; i < PrevOptions.Length; i++)
+            for (int i = 0; i < PrevOptions.Length + 10; i++)
             {
                 Console.SetCursorPosition(0, 1);
                 Console.ForegroundColor = ConsoleColor.Black;
@@ -159,6 +172,26 @@ namespace FileManager
                 Console.WriteLine(Label);
             }
             Console.ResetColor();
+        }
+
+        private void Instructons()
+        {
+            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.SetCursorPosition(85, 2);
+            Console.WriteLine("│Use Arrows for navigation.       │");
+            Console.SetCursorPosition(85, 3);
+            Console.WriteLine("│Use Arrows for navigation.       │");
+            Console.SetCursorPosition(85, 4);
+            Console.WriteLine("│Use Enter to open folder.        │");
+            Console.SetCursorPosition(85, 5);
+            Console.WriteLine("│Use ESC to open privios folder.  │");
+            Console.SetCursorPosition(85, 6);
+            Console.WriteLine("│Use DELETE to delete folder/file.│");
+            Console.SetCursorPosition(85, 7);
+            Console.WriteLine("│Use F1 to create folder.         │");
+            Console.SetCursorPosition(85, 8);
+            Console.WriteLine("│Use F2 to create files.          │");
         }
     }
 }
