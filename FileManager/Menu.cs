@@ -20,7 +20,7 @@ namespace FileManager
         private string[] PrevOptions;
 
         private string[] Paths;
-
+        
 
         public void MainMenu()
         {
