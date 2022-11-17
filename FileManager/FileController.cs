@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
+using System.Media;
 
 namespace FileManager
 {
@@ -149,7 +150,9 @@ namespace FileManager
             Console.SetCursorPosition(45, 11);
             Console.WriteLine("                     ");
             Console.ResetColor();
-            Thread.Sleep(250);
+            SoundPlayer soundPlayer = new SoundPlayer("Assets/error.wav");
+            soundPlayer.Play();
+            Thread.Sleep(1000);
         }
 
         private static int SelectedIndex;

@@ -20,7 +20,7 @@ namespace FileManager
         private string[] PrevOptions;
 
         private string[] Paths;
-
+        
 
         public void MainMenu()
         {
@@ -35,6 +35,7 @@ namespace FileManager
 
         private void Display_Options()
         {
+            Console.CursorVisible = false;
             Console.ResetColor();
             Console.SetCursorPosition(0, 0);
             Console.ForegroundColor = ConsoleColor.Black;
