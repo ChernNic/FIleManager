@@ -1,9 +1,6 @@
 ﻿using System;
 using System.IO;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Threading;
 using System.Media;
 
@@ -13,9 +10,8 @@ namespace FileManager
     {
         public static string[] GetDirectoryInfo(string path)
         {
-            string[] result;
 
-            string[] dirs = Directory.GetDirectories(path); //добавь исключение
+            string[] dirs = Directory.GetDirectories(path); 
 
             for (int i = 0; i < dirs.Length; i++)
             {
@@ -82,7 +78,9 @@ namespace FileManager
                         Console.SetCursorPosition(45, 11);
                         Console.WriteLine("                     ");
                         Console.ResetColor();
-                        Thread.Sleep(250);
+                        SoundPlayer soundPlayer = new SoundPlayer("Assets/error.wav");
+                        soundPlayer.Play();
+                        Thread.Sleep(1000);
                     }
                 }
                 catch (UnauthorizedAccessException)
